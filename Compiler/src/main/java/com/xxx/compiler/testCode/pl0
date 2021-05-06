@@ -11,5 +11,5 @@ BEGIN
       ! squ;
       x := x + 1
    END
-   (*测试github更笨*)
+   (*测试github*)
 END.
