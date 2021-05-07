@@ -32,9 +32,9 @@ public class themain {
         for (int i=0;i<list.size();i++){
             list.get(i).printWord();
         }
-//        ArrayList<Word> list= Analyse.go(s);
-//        for (int i=0;i<list.size();i++){
-//            list.get(i).printWord();
-//        }
+        if(Analyse.getDuohangzhushi()==1){
+            System.out.println("error! *) 不能匹配");
+        }
+
     }
 }

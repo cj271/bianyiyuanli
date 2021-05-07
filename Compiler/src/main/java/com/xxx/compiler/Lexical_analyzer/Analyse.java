@@ -18,6 +18,11 @@ public class Analyse {
     private static ArrayList constList=new ArrayList();//已识别的常数
     private static ArrayList allList=new ArrayList();//已识别的所有单词
     private static int duohangzhushi=0;
+
+    public static int getDuohangzhushi() {
+        return duohangzhushi;
+    }
+
     public static ArrayList go(String s){
         j=0;
         strToken=new StringBuffer();
@@ -99,6 +104,7 @@ public class Analyse {
                     if(j==s.length())break;
                     ch=getChar(s);
                 }
+                if(j!=s.length())
                 j--;
                 int code=Keyword.reserveR(strToken);
                 if(code==0){
@@ -118,6 +124,7 @@ public class Analyse {
                     if(j==s.length()){j++;break;};
                     ch=getChar(s);
                 }
+                if(j!=s.length())
                 j--;
                 if(!Util.IsConstExist(constList,Integer.parseInt(strToken.toString()))){
                     constList.add(Integer.parseInt(strToken.toString()));
