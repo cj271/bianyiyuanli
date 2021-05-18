@@ -1,7 +1,8 @@
 package com.xxx.compiler;
 
-import com.xxx.compiler.GUI.test;
+
 import com.xxx.compiler.Lexical_analyzer.Analyse;
+import com.xxx.compiler.Parser.GrammarAnalyse;
 import com.xxx.compiler.entity.Word;
 
 import java.io.BufferedReader;
@@ -18,11 +19,13 @@ public class themain {
             String s = null;
 
             //将配置文件转为map
+            int line=0;
             while((s = br.readLine()) != null) {
+                line++;
                 if (s.equals("")){
                     continue;
                 }
-                list= Analyse.go(s);
+                list= Analyse.go(s,line);
             }
             br.close();
             reader.close();
@@ -35,6 +38,7 @@ public class themain {
         if(Analyse.getDuohangzhushi()==1){
             System.out.println("error! *) 不能匹配");
         }
-
+        GrammarAnalyse grammarAnalyse=new GrammarAnalyse(list);
+        grammarAnalyse.go();
     }
 }

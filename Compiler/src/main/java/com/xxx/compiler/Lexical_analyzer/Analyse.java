@@ -23,7 +23,7 @@ public class Analyse {
         return duohangzhushi;
     }
 
-    public static ArrayList go(String s){
+    public static ArrayList go(String s,int line){
         j=0;
         strToken=new StringBuffer();
         do{
@@ -51,7 +51,7 @@ public class Analyse {
             if(ch=='/'){
                 contact(ch);
                 if (j==s.length()){
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     break;
                 }
                 ch=getChar(s);
@@ -59,7 +59,7 @@ public class Analyse {
                     System.out.println("识别单行注释成功！");
                     return allList;
                 }else {
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     j--;
                     continue;
                 }
@@ -67,7 +67,7 @@ public class Analyse {
             }else if(ch=='('){
                 contact(ch);
                 if (j==s.length()){
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     break;
                 }
                 ch=getChar(s);
@@ -75,7 +75,7 @@ public class Analyse {
                     duohangzhushi=1;
                     System.out.println("多行注释开始");
                 }else {
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     j--;
                     continue;
                 }
@@ -89,12 +89,12 @@ public class Analyse {
                     if(code==0){
                         if(!Util.IsExist(list,strToken)){//不存在
                             list.add(strToken);
-                            allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,list.size()-1));
+                            allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,list.size()-1,line));
                         }else {//已存在
-                            allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,Util.getExistWordSubscript(list,strToken)));
+                            allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,Util.getExistWordSubscript(list,strToken),line));
                         }
                     }else{
-                        allList.add(new Word(strToken.toString(),code,Keyword.getMnemonic(code)));
+                        allList.add(new Word(strToken.toString(),code,Keyword.getMnemonic(code),line));
                     }
                     break;
                 }
@@ -110,12 +110,12 @@ public class Analyse {
                 if(code==0){
                     if(!Util.IsExist(list,strToken)){//不存在
                         list.add(strToken);
-                        allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,list.size()-1));
+                        allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,list.size()-1,line));
                     }else {//已存在
-                        allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,Util.getExistWordSubscript(list,strToken)));
+                        allList.add(new Word(strToken.toString(),BIAOSHIFU,ZBIAOSHIFU,Util.getExistWordSubscript(list,strToken),line));
                     }
                 }else{
-                    allList.add(new Word(strToken.toString(),code,Keyword.getMnemonic(code)));
+                    allList.add(new Word(strToken.toString(),code,Keyword.getMnemonic(code),line));
                 }
             //常数识别
             }else if (Util.IsDigit(ch)){
@@ -128,23 +128,23 @@ public class Analyse {
                 j--;
                 if(!Util.IsConstExist(constList,Integer.parseInt(strToken.toString()))){
                     constList.add(Integer.parseInt(strToken.toString()));
-                    allList.add(new Word(strToken.toString(),CHANGSHU,ZCHANGSHU,constList.size()-1));
+                    allList.add(new Word(strToken.toString(),CHANGSHU,ZCHANGSHU,constList.size()-1,line));
                 }else {
-                    allList.add(new Word(strToken.toString(),CHANGSHU,ZCHANGSHU,Util.getExistConstSubscript(constList,strToken.toString())));
+                    allList.add(new Word(strToken.toString(),CHANGSHU,ZCHANGSHU,Util.getExistConstSubscript(constList,strToken.toString()),line));
                 }
             //识别：=
             }else if (ch==':'){
                 contact(ch);
                 if (j==s.length()){
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     break;
                 }
                 ch=getChar(s);
                 if(ch=='='){
                     contact(ch);
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                 }else {
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     j--;
                     continue;
                 }
@@ -152,15 +152,15 @@ public class Analyse {
             }else if(ch=='<'){
                 contact(ch);
                 if (j==s.length()){
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     break;
                 }
                 ch=getChar(s);
                 if(ch=='>'||ch=='='){
                     contact(ch);
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                 }else {
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     j--;
                     continue;
                 }
@@ -168,15 +168,15 @@ public class Analyse {
             }else if(ch=='>'){
                 contact(ch);
                 if (j==s.length()){
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     break;
                 }
                 ch=getChar(s);
                 if(ch=='='){
                     contact(ch);
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                 }else {
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                     j--;
                     continue;
                 }
@@ -187,7 +187,7 @@ public class Analyse {
                 if(code==0){
                     System.out.println("error！不能识别："+ch);
                 }else{
-                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString()))));
+                    allList.add(new Word(strToken.toString(),Keyword.findOP(strToken.toString()),Keyword.getMnemonicOP(Keyword.findOP(strToken.toString())),line));
                 }
             }
 
