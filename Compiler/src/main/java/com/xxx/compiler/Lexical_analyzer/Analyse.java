@@ -101,10 +101,10 @@ public class Analyse {
                 ch=getChar(s);
                 while(Util.IsLetter(ch)||Util.IsDigit(ch)){
                     contact(ch);
-                    if(j==s.length())break;
+                    if(j==s.length()){j++;break;}
                     ch=getChar(s);
                 }
-                if(j!=s.length())
+
                 j--;
                 int code=Keyword.reserveR(strToken);
                 if(code==0){
@@ -124,7 +124,7 @@ public class Analyse {
                     if(j==s.length()){j++;break;};
                     ch=getChar(s);
                 }
-                if(j!=s.length())
+
                 j--;
                 if(!Util.IsConstExist(constList,Integer.parseInt(strToken.toString()))){
                     constList.add(Integer.parseInt(strToken.toString()));
