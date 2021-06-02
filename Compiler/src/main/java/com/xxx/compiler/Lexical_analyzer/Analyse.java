@@ -30,7 +30,11 @@ public class Analyse {
             strToken.delete(0,strToken.length());
             do{
                 ch=getChar(s);
+                if(j==s.length()){
+                    break;
+                }
             }while(Util.getBC(ch));
+
             if(duohangzhushi==1){
                 //识别多行注释结束符号
                if(ch=='*'){

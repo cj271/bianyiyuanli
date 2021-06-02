@@ -1,14 +1,12 @@
-VAR x, squ;
-
-PROCEDURE square;
-BEGIN
-   squ:= x * x;
-END;
-BEGIN
-   x := 1;
-   WHILE x <= 10 DO
-   BEGIN
-      CALL square;
-      x := x + 1;
-   END
-END.
+const pi=3;
+var i,j,result;
+Procedure test;
+Begin
+i:=+1;
+j:=+1;
+while +i<+9 do
+Begin
+result:=+i*j;
+write(+result);
+j:=+j+1
+END;.

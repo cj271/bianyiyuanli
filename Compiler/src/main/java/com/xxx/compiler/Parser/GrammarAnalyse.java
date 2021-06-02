@@ -295,7 +295,7 @@ public class GrammarAnalyse {
             word=getSym();
             if (word.getType()==9){
                 if(statement()==0)return 0;
-            }else  {err(word);return 0;}
+            }else{err(word);return 0;}
         }else if (word.getType()==15){//=read
             word=getSym();
             if (word.getType()==24){
